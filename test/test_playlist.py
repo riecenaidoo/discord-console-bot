@@ -1,10 +1,9 @@
 import unittest
 
-from bot.playlist import Playlist
+from src.bot.playlist import Playlist
 
 
 class TestMusicQueue(unittest.TestCase):
-
     def test_normal_next(self):
         playlist = Playlist()
         playlist.add("a")
@@ -53,7 +52,8 @@ class TestMusicQueue(unittest.TestCase):
         try:
             playlist.prev()
             self.fail(
-                "Should throw an error! There is no previous song. 'a' is currently playing!")
+                "Should throw an error! There is no previous song. 'a' is currently playing!"
+            )
         except Playlist.ExhaustedException:
             pass
 
@@ -62,7 +62,6 @@ class TestMusicQueue(unittest.TestCase):
 
         try:
             playlist.prev()
-            self.fail(
-                "Should throw an error! There is no previous song before 'a'.")
+            self.fail("Should throw an error! There is no previous song before 'a'.")
         except Playlist.ExhaustedException:
             pass

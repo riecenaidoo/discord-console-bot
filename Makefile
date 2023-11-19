@@ -40,11 +40,16 @@ $(RUFF): $(VENV)/bin/activate
 # Check before push.
 .PHONY:check
 check: $(RUFF)
-	$(RUFF) format src/
-	$(RUFF) check src/ --fix
+	$(RUFF) format src/ test/
+	$(RUFF) check src/ test/ --fix
+
+
+.PHONY:test
+test:
+	cd src/ && ../$(PYTHON) -m unittest discover -s ../
 
 
 .PHONY:clean
 clean:
-	rm -rf src/__pycache__ src/bot/__pycache__ .ruff_cache
+	rm -rf src/__pycache__ src/bot/__pycache__ test/__pycache__ .ruff_cache
 	rm -rf $(VENV)
