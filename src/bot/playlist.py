@@ -2,6 +2,7 @@
 
 import logging
 from random import randrange
+from typing import Optional
 
 import utils
 
@@ -36,15 +37,18 @@ class Playlist:
         is trying to retrieve from.
         """
 
-    def add(self, url: str, index: int = 0):
+    def add(self, url: str, index: Optional[int] = None):
         """Add a song url to the playlist's queue.
 
         Args:
             url (str): URL to add to the Playlist.
-            index (int, optional): Index to add the URL at. Defaults to 0.
+            index (int, optional): Index to add the URL at.
         """
 
-        self.song_queue.insert(index, url)
+        if index:
+            self.song_queue.insert(index, url)
+        else:
+            self.song_queue.append(url)
 
     def _pop(self, index: int = 0) -> str:
         """Removes and returns an element from the Playlist.
