@@ -1,10 +1,12 @@
+"""Functional tests for the Playlist module."""
 import unittest
 
 from src.bot.playlist import Playlist
 
 
-class TestMusicQueue(unittest.TestCase):
-    def test_normal_next(self):
+class TestPlaylist(unittest.TestCase):
+    def test_default_mode(self):
+        """Default to a FIFO queue."""
         playlist = Playlist()
         playlist.add("a")
         playlist.add("b")
@@ -19,7 +21,8 @@ class TestMusicQueue(unittest.TestCase):
         except Playlist.ExhaustedException:
             pass
 
-    def test_loop_next(self):
+    def test_loop_mode(self):
+        """In loop mode, playlist should repeat in order."""
         playlist = Playlist()
         playlist.add("a")
         playlist.add("b")
@@ -33,7 +36,8 @@ class TestMusicQueue(unittest.TestCase):
         self.assertEqual(playlist.next(), "b")
         self.assertEqual(playlist.next(), "c")
 
-    def test_repeat_next(self):
+    def test_repeat_mode(self):
+        """In repeat mode, always return current song."""
         playlist = Playlist()
         playlist.add("a")
         playlist.add("b")
@@ -45,6 +49,7 @@ class TestMusicQueue(unittest.TestCase):
         self.assertEqual(playlist.next(), "a")
 
     def test_prev(self):
+        """Playlist should keep track of previously played songs in order."""
         playlist = Playlist()
         playlist.add("a")
         playlist.add("b")
